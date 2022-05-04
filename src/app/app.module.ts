@@ -1,24 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { TranslatePage } from './pages/translate-page/translate-page';
+
+import {MatIconModule} from "@angular/material/icon";
+import { TranslatePageComponent } from './translate/translate-page/translate-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from "@angular/material/button";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: TranslatePage },
-    ])
-  ],
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot([
+            {path: '', component: TranslatePageComponent},
+        ]),
+        MatIconModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule
+    ],
   declarations: [
     AppComponent,
     TopBarComponent,
-    TranslatePage
+    TranslatePageComponent
   ],
   bootstrap: [
     AppComponent

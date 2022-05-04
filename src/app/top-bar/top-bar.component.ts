@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {MatSidenav} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-top-bar',
@@ -6,6 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent {
+
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
+
+  toggleMenu() {
+    if (this.sidenav.opened) {
+      console.log("cloising sidenavc")
+      this.sidenav.close()
+    } else {
+      console.log("opening sidenav")
+      this.sidenav.open()
+    }
+  }
 
 }
 

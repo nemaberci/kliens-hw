@@ -1,3 +1,23 @@
-<a [routerLink]="['/']">
-  <h1>Best Dictionary</h1>
-</a>
+
+<div class="min100">
+    <mat-toolbar>
+        <button mat-button (click)="toggleMenu()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <h2>Best Dictionary</h2>
+    </mat-toolbar>
+
+    <mat-sidenav-container>
+        <mat-sidenav [mode]="'side'" class="sidenav">
+            <button mat-button>
+                <a [routerLink]="['/']" >
+                    <span>Best Dictionary</span>
+                </a>
+            </button>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <ng-content></ng-content>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
