@@ -1,39 +1,75 @@
-<h1>Translate page (WIP)</h1>
-
 <div class="translate-page-container">
-    <div class="translation-container">
-        <mat-form-field appearance="fill">
+    <div class="translation-container-input">
+        <mat-form-field appearance="outline">
             <mat-label>Input</mat-label>
-            <textarea matInput placeholder="Enter what you wish to translate here." [(ngModel)]="toTranslate"> </textarea>
+            <input matInput placeholder="Enter what you wish to translate here."
+                   [(ngModel)]="toTranslate" [formControl]="inputTextFormControl" ngDefaultControl
+                   name="toTranslate" (keydown.enter)="translate()">
+            <button matSuffix mat-icon-button (click)="translate()">
+                <mat-icon>search</mat-icon>
+            </button>
+            <mat-error *ngIf="inputTextFormControl.hasError('required')">
+                Field is required
+            </mat-error>
+            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && noResponse">
+                Translation does not exist.
+            </mat-hint>
+            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && customError.length > 0">
+                {{customError}}
+            </mat-hint>
         </mat-form-field>
     </div>
-    <div class="translation-container">
-        <mat-form-field appearance="fill">
+    <div class="translation-container-lang">
+        <mat-form-field appearance="outline">
             <mat-label>
                 Input language
             </mat-label>
-            <mat-select [(value)]="inputLanguage">
-                <mat-option *ngFor="let lang of languages" [value]="lang.code">
-                    {{lang.display}}
+            <mat-select [(value)]="inputLanguage" required>
+                <mat-option *ngFor="let lang of sourceLanguages" [value]="lang">
+                    {{languageNames.of(lang)}}
                 </mat-option>
             </mat-select>
+            <mat-hint *ngIf="inputLanguage.length === 0 && triedOnce">
+                Field is required
+            </mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
             <mat-label>
                 Output language
             </mat-label>
-            <mat-select [(value)]="outputLanguage">
-                <mat-option *ngFor="let lang of languages" [value]="lang.code">
-                    {{lang.display}}
+            <mat-select [(value)]="outputLanguage" required>
+                <mat-option *ngFor="let lang of targetLanguages.get(inputLanguage)" [value]="lang">
+                    {{languageNames.of(lang)}}
                 </mat-option>
             </mat-select>
+            <mat-hint *ngIf="outputLanguage.length === 0 && triedOnce">
+                Field is required
+            </mat-hint>
         </mat-form-field>
-        <button mat-button>Translate!</button>
     </div>
     <div class="translation-container">
-        <mat-form-field appearance="fill">
-            <mat-label>Translation result</mat-label>
-            <textarea matInput placeholder="Translation result will appear here." readonly [(ngModel)]="translated"> </textarea>
-        </mat-form-field>
+        <label *ngIf="translations.length > 0" class="translation-results-label">Translation results</label>
+        <div *ngFor="let translation of translations">
+            <mat-card>
+                <mat-card-title>
+                    {{translation.translation}}
+                    <button mat-button matTooltip="Copy to clipboard" [cdkCopyToClipboard]="translation.translation">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                </mat-card-title>
+                <mat-card-content *ngIf="translation.synonyms.length > 0">
+                    Synonyms:
+                    <ul>
+                        <li *ngFor="let synonym of translation.synonyms">{{synonym}}</li>
+                    </ul>
+                </mat-card-content>
+                <mat-card-subtitle *ngIf="translation.meanings.length > 0">
+                    <span *ngFor="let context of translation.meanings" class="word-context">
+                        {{context}}
+                    </span>
+                </mat-card-subtitle>
+            </mat-card>
+            <mat-divider class="divider"></mat-divider>
+        </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-.translate-page-container {
+.synonym-page-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.translation-container {
+.synonym-container {
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -15,7 +15,7 @@
     width: 50%;
 }
 
-.translation-container-input {
+.synonym-container-input {
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -24,7 +24,7 @@
     width: 50%;
 }
 
-.translation-container-lang {
+.synonym-container-lang {
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -33,15 +33,15 @@
     width: 50%;
 }
 
-.translation-container-lang > * {
+.synonym-container-lang > * {
     margin: 10px;
 }
 
-.translation-results-label {
+.synonym-results-label {
     align-self: center;
     font-size: 1.2rem;
     font-weight: bold;
-    padding: 6px;
+    padding: 6px 6px 30px;
 }
 
 .divider {

@@ -5,16 +5,23 @@
             <mat-icon>menu</mat-icon>
         </button>
 
-        <h2>Best Dictionary</h2>
+        <h2>Dictionary and Thesaurus</h2>
     </mat-toolbar>
 
     <mat-sidenav-container>
         <mat-sidenav [mode]="'side'" class="sidenav">
-            <button mat-button>
-                <a [routerLink]="['/']" >
-                    <span>Best Dictionary</span>
-                </a>
-            </button>
+            <div class="navbar">
+                <button mat-button>
+                    <a [routerLink]="['/']" >
+                        <span>Dictionary</span>
+                    </a>
+                </button>
+                <button mat-button>
+                    <a [routerLink]="['/thesaurus']" >
+                        <span>Thesaurus</span>
+                    </a>
+                </button>
+            </div>
         </mat-sidenav>
         <mat-sidenav-content>
             <ng-content></ng-content>

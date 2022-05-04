@@ -14,6 +14,14 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import {HttpClientModule} from "@angular/common/http";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatCardModule} from "@angular/material/card";
+import {MatTableModule} from "@angular/material/table";
+import {MatListModule} from "@angular/material/list";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {ClipboardModule} from "@angular/cdk/clipboard";
+import { ThesaurusComponent } from './thesaurus/thesaurus/thesaurus.component';
 
 @NgModule({
     imports: [
@@ -21,6 +29,7 @@ import {MatSelectModule} from "@angular/material/select";
         ReactiveFormsModule,
         RouterModule.forRoot([
             {path: '', component: TranslatePageComponent},
+            {path: 'thesaurus', component: ThesaurusComponent}
         ]),
         MatIconModule,
         BrowserAnimationsModule,
@@ -29,12 +38,20 @@ import {MatSelectModule} from "@angular/material/select";
         MatToolbarModule,
         MatInputModule,
         MatSelectModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
+        MatTabsModule,
+        MatCardModule,
+        MatTableModule,
+        MatListModule,
+        MatTooltipModule,
+        ClipboardModule
     ],
   declarations: [
     AppComponent,
     TopBarComponent,
-    TranslatePageComponent
+    TranslatePageComponent,
+    ThesaurusComponent
   ],
   bootstrap: [
     AppComponent

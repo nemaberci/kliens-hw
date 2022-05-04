@@ -1,0 +1,57 @@
+<div class="synonym-page-container">
+    <div class="synonym-container-input">
+        <mat-form-field appearance="outline">
+            <mat-label>Input</mat-label>
+            <input matInput placeholder="Enter what you want to find synonyms for."
+                   [(ngModel)]="inputText" [formControl]="inputTextFormControl" ngDefaultControl
+                   (keydown.enter)="thesaurize()">
+            <button matSuffix mat-icon-button (click)="thesaurize()">
+                <mat-icon>search</mat-icon>
+            </button>
+            <mat-error *ngIf="inputTextFormControl.hasError('required')">
+                Field is required
+            </mat-error>
+            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && notFound">
+                Word does not exist in the given language.
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="synonym-container-lang">
+        <mat-form-field appearance="outline">
+            <mat-label>
+                Input language
+            </mat-label>
+            <mat-select [(value)]="inputLanguage" required>
+                <mat-option *ngFor="let lang of locales" [value]="lang.baseName?.replace('-','_')">
+                    {{languageNames.of(lang.language || '')}} - {{regionNames.of(lang.region || '')}}
+                </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="inputLanguage.length === 0 && triedOnce">
+                Field is required
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="synonym-container">
+        <label *ngIf="synonyms.length > 0" class="synonym-results-label">Synonyms</label>
+        <div *ngFor="let synonym of synonyms">
+            <mat-card>
+                <mat-card-title>
+                </mat-card-title>
+                <mat-card-content *ngIf="synonym.words.length > 0">
+                    <ul>
+                        <li *ngFor="let synonymWord of synonym.words">
+                            {{synonymWord}}
+                            <button mat-button matTooltip="Copy to clipboard" [cdkCopyToClipboard]="synonymWord">
+                                <mat-icon>content_copy</mat-icon>
+                            </button>
+                        </li>
+                    </ul>
+                </mat-card-content>
+                <mat-card-subtitle>
+                    {{synonym.category}}
+                </mat-card-subtitle>
+            </mat-card>
+            <mat-divider class="divider"></mat-divider>
+        </div>
+    </div>
+</div>
