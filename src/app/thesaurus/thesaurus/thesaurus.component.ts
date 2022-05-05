@@ -19,10 +19,12 @@ export class ThesaurusComponent implements OnInit {
   locales = this.sourceLanguages.map(
       lang => new Intl.Locale(lang.replace('_', '-'))
   )
-  languageNames = new Intl.DisplayNames(["en"], {type: "language"})
-  regionNames = new Intl.DisplayNames(["en"], {type: "region"})
   triedOnce: boolean = false;
   synonyms: Synonym[] = [];
+
+  languageOptionMapper(lang: Intl.Locale): string {
+    return lang.baseName?.replace('-','_') || ""
+  }
 
   constructor(private thesaurusService: ThesaurusService) { }
 

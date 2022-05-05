@@ -12,6 +12,14 @@ a {
     flex-direction: column;
 }
 
+.main-container {
+    min-height: calc(100% - 64px);
+}
+
+.min100 {
+    height: 100%;
+}
+
 /*
 Copyright Google LLC. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that

@@ -22,6 +22,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import { ThesaurusComponent } from './thesaurus/thesaurus/thesaurus.component';
+import { LanguageSelectorComponent } from './common/language-selector/language-selector.component';
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { ThesaurusComponent } from './thesaurus/thesaurus/thesaurus.component';
     AppComponent,
     TopBarComponent,
     TranslatePageComponent,
-    ThesaurusComponent
+    ThesaurusComponent,
+    LanguageSelectorComponent
   ],
   bootstrap: [
     AppComponent

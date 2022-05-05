@@ -19,13 +19,12 @@ class CustomErrorStateMatcher implements ErrorStateMatcher {
 })
 export class TranslatePageComponent implements OnInit {
 
-    sourceLanguages: Set<string> = new Set<string>()
-    targetLanguages: Map<string, Set<string>> = new Map()
+    sourceLanguages: Intl.Locale[] = []
+    targetLanguages: Map<string, Intl.Locale[]> = new Map()
     inputLanguage: string = ""
     outputLanguage: string = ""
     toTranslate: string = ""
     translated: string = ""
-    languageNames = new Intl.DisplayNames(["en"], {type: "language"})
     translations: Array<Translation> = []
     inputTextFormControl: FormControl = new FormControl('', [Validators.minLength(1), Validators.required]);
     JSON = JSON;
@@ -43,17 +42,20 @@ export class TranslatePageComponent implements OnInit {
                 langs.forEach(
                     lang => {
                         let parts = lang.split("-")
-                        this.sourceLanguages.add(parts[0])
+                        if (!this.sourceLanguages.find(loc => loc.baseName === parts[0])) {
+                            this.sourceLanguages.push(new Intl.Locale(parts[0]))
+                        }
                         if (this.targetLanguages.has(parts[0])) {
                             this.targetLanguages.set(
                                 parts[0],
-                                this.targetLanguages.get(parts[0])!.add(parts[1])
+                                this.targetLanguages.get(parts[0])!.concat(new Intl.Locale(parts[1]))
                             )
                         } else {
-                            this.targetLanguages.set(parts[0], new Set<string>().add(parts[1]))
+                            this.targetLanguages.set(parts[0], [new Intl.Locale(parts[1])])
                         }
                     }
                 )
+                console.log(this.sourceLanguages, this.targetLanguages)
             }
         )
     }

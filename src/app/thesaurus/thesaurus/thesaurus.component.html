@@ -1,3 +1,13 @@
+<div class="tutorial-text">
+    <h1>Thesaurus</h1>
+    <h2>How to use:</h2>
+    <ul>
+        <li>Enter the phrase / word you wish to find synonyms for into the input box</li>
+        <li>Select the input language.</li>
+        <li>Click the <mat-icon>search</mat-icon> icon.</li>
+    </ul>
+</div>
+
 <div class="synonym-page-container">
     <div class="synonym-container-input">
         <mat-form-field appearance="outline">
@@ -17,19 +27,7 @@
         </mat-form-field>
     </div>
     <div class="synonym-container-lang">
-        <mat-form-field appearance="outline">
-            <mat-label>
-                Input language
-            </mat-label>
-            <mat-select [(value)]="inputLanguage" required>
-                <mat-option *ngFor="let lang of locales" [value]="lang.baseName?.replace('-','_')">
-                    {{languageNames.of(lang.language || '')}} - {{regionNames.of(lang.region || '')}}
-                </mat-option>
-            </mat-select>
-            <mat-hint *ngIf="inputLanguage.length === 0 && triedOnce">
-                Field is required
-            </mat-hint>
-        </mat-form-field>
+        <app-language-selector [(selected)]="inputLanguage" [showError]="triedOnce" [languages]="locales" [languageOptionMapper]="languageOptionMapper" ></app-language-selector>
     </div>
     <div class="synonym-container">
         <label *ngIf="synonyms.length > 0" class="synonym-results-label">Synonyms</label>

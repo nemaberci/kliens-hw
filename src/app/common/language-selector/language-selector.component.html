@@ -1,0 +1,17 @@
+
+<mat-form-field appearance="outline">
+    <mat-label>
+        {{label}}
+    </mat-label>
+    <mat-select [value]="selected" (valueChange)="selectedChanged($event)" required>
+        <mat-option *ngFor="let lang of languages" [value]="mappedLang(lang)">
+            {{languageNames.of(lang.language || '')}}
+            <span *ngIf="lang.region">
+                - {{regionNames.of(lang.region)}}
+            </span>
+        </mat-option>
+    </mat-select>
+    <mat-hint *ngIf="!selected && showError">
+        Field is required
+    </mat-hint>
+</mat-form-field>
