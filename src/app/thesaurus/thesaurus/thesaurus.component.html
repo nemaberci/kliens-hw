@@ -14,15 +14,15 @@
             <mat-label>Input</mat-label>
             <input matInput placeholder="Enter what you want to find synonyms for."
                    [(ngModel)]="inputText" [formControl]="inputTextFormControl" ngDefaultControl
-                   (keydown.enter)="thesaurize()">
+                   (keydown.enter)="thesaurize()" (input)="showError = false">
             <button matSuffix mat-icon-button (click)="thesaurize()">
                 <mat-icon>search</mat-icon>
             </button>
             <mat-error *ngIf="inputTextFormControl.hasError('required')">
                 Field is required
             </mat-error>
-            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && notFound">
-                Word does not exist in the given language.
+            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && showError">
+                <span style="color: firebrick">Word does not exist in the given language.</span>
             </mat-hint>
         </mat-form-field>
     </div>

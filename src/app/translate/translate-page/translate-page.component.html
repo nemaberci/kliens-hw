@@ -15,18 +15,18 @@
             <mat-label>Input</mat-label>
             <input matInput placeholder="Enter what you wish to translate here."
                    [(ngModel)]="toTranslate" [formControl]="inputTextFormControl" ngDefaultControl
-                   name="toTranslate" (keydown.enter)="translate()">
+                   name="toTranslate" (keydown.enter)="translate()" (input)="showError = false">
             <button matSuffix mat-icon-button (click)="translate()" matTooltip="Translate!">
                 <mat-icon>search</mat-icon>
             </button>
             <mat-error *ngIf="inputTextFormControl.hasError('required')">
                 Field is required
             </mat-error>
-            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && noResponse">
-                Translation does not exist.
+            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && noResponse && showError">
+                <span style="color: firebrick">Translation does not exist.</span>
             </mat-hint>
-            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && customError.length > 0">
-                {{customError}}
+            <mat-hint *ngIf="!inputTextFormControl.hasError('required') && customError.length > 0 && showError">
+                <span style="color: firebrick">{{customError}}</span>
             </mat-hint>
         </mat-form-field>
     </div>

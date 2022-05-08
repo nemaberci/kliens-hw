@@ -11,7 +11,7 @@ import {ThesaurusService} from "../service/thesaurus.service";
 export class ThesaurusComponent implements OnInit {
   inputTextFormControl: FormControl = new FormControl('', Validators.required);
   inputText: string = "";
-  notFound: boolean = false;
+  showError: boolean = false;
   inputLanguage: string = "";
   sourceLanguages: string[] = [
     'cs_CZ', 'da_DK', 'de_CH', 'de_DE', 'en_US', 'el_GR', 'es_ES', 'fr_FR', 'hu_HU', 'it_IT', 'no_NO', 'pl_PL', 'pt_PT', 'ro_RO', 'ru_RU', 'sk_SK'
@@ -38,10 +38,11 @@ export class ThesaurusComponent implements OnInit {
         .subscribe(
             value => {
               this.synonyms = value
-              this.notFound = false;
+              this.showError = false;
             },
             error => {
-              this.notFound = true;
+              this.synonyms = [];
+              this.showError = true;
             }
         )
   }

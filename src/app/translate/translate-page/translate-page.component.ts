@@ -32,6 +32,7 @@ export class TranslatePageComponent implements OnInit {
     triedOnce: boolean = false;
     noResponse: boolean = false;
     customError: string = "";
+    showError: boolean = false;
 
     constructor(private translateService: TranslateService) {
     }
@@ -63,7 +64,7 @@ export class TranslatePageComponent implements OnInit {
     async translate() {
         this.triedOnce = true;
         if (!this.inputLanguage || !this.outputLanguage || !this.toTranslate) {
-            // return;
+            return;
         }
         this.translateService.translate(
             this.inputLanguage,
@@ -75,16 +76,19 @@ export class TranslatePageComponent implements OnInit {
                 if (translation.length === 0) {
                     this.noResponse = true;
                     this.customError = "";
+                    this.showError = true
                     return;
                 }
                 this.translations = translation
                 this.translated = translation[0].translation
                 this.noResponse = false;
                 this.customError = "";
+                this.showError = false;
             },
             error => {
                 console.log(error)
                 this.noResponse = false;
+                this.showError = true;
                 this.customError = error.message;
             }
         )
