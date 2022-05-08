@@ -4,6 +4,9 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 
+/**
+ * Internal Synonym implementation without any added functionality.
+ * */
 class SynonymImpl implements Synonym {
     constructor(public category: string, public words: string[]) {
     }
@@ -14,11 +17,20 @@ class SynonymImpl implements Synonym {
 })
 export class ThesaurusService {
 
+    /**
+     * Internal variable, using thesaurusApiKey environmental variable.
+     * */
     apiKey: string = environment.thesaurusApiKey
 
+    /**
+     * Find Synonym for <code>word</code> in language <code>lang</code>.
+     * @returns Observable<Synonym[]>
+     *     @param lang {string} Input word's language
+     *     @param word {string} Input word
+     * */
     thesaurize(lang: string, word: string): Observable<Synonym[]> {
         return this.httpClient
-            .get(`http://thesaurus.altervista.org/thesaurus/v1?word=${word}&language=${lang}&key=${this.apiKey}&output=json`)
+            .get(`http://thesaurus.altervista.org/thesaurus/v1?language=${lang}&key=${this.apiKey}&output=json&word=${word}`)
             .pipe(
                 map(
                     (synonyms: any) => {

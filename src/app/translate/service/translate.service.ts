@@ -13,6 +13,7 @@ class TranslationImpl implements Translation {
 })
 export class TranslateService {
 
+    /** */
     apiKey: string = environment.apiKey
 
     getLangs(): Observable<string[]> {

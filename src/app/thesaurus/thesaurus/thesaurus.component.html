@@ -22,12 +22,12 @@
                 Field is required
             </mat-error>
             <mat-hint *ngIf="!inputTextFormControl.hasError('required') && showError">
-                <span style="color: firebrick">Word does not exist in the given language.</span>
+                <span style="color: firebrick">Could not get synonyms.</span>
             </mat-hint>
         </mat-form-field>
     </div>
     <div class="synonym-container-lang">
-        <app-language-selector [(selected)]="inputLanguage" [showError]="triedOnce" [languages]="locales" [languageOptionMapper]="languageOptionMapper" ></app-language-selector>
+        <app-language-selector [(selected)]="inputLanguage" [showError]="showError" [languages]="locales" [languageOptionMapper]="languageOptionMapper" ></app-language-selector>
     </div>
     <div class="synonym-container">
         <label *ngIf="synonyms.length > 0" class="synonym-results-label">Synonyms</label>

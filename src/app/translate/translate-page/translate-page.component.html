@@ -5,7 +5,10 @@
         <li>Enter the phrase / word you wish to translate into the input box</li>
         <li>Select the input language. Output languages are only visible after selecting the input language.</li>
         <li>Select the output language.</li>
-        <li>Click the <mat-icon>search</mat-icon> icon.</li>
+        <li>Click the
+            <mat-icon>search</mat-icon>
+            icon.
+        </li>
     </ul>
 </div>
 
@@ -31,8 +34,11 @@
         </mat-form-field>
     </div>
     <div class="translation-container-lang">
-        <app-language-selector [(selected)]="inputLanguage" [showError]="triedOnce" [languages]="sourceLanguages" ></app-language-selector>
-        <app-language-selector [(selected)]="outputLanguage" [showError]="triedOnce" [languages]="targetLanguages.get(inputLanguage) || []" label="Output language"></app-language-selector>
+        <app-language-selector [(selected)]="inputLanguage" [showError]="showError"
+                               [languages]="sourceLanguages"></app-language-selector>
+        <app-language-selector [(selected)]="outputLanguage" [showError]="showError"
+                               [languages]="targetLanguages.get(inputLanguage) || []"
+                               [label]="'Output language'"></app-language-selector>
     </div>
     <div class="translation-container">
         <label *ngIf="translations.length > 0" class="translation-results-label">Translation results</label>
@@ -50,10 +56,15 @@
                         <li *ngFor="let synonym of translation.synonyms">{{synonym}}</li>
                     </ul>
                 </mat-card-content>
-                <mat-card-subtitle *ngIf="translation.meanings.length > 0">
-                    <span *ngFor="let context of translation.meanings" class="word-context">
-                        {{context}}
-                    </span>
+                <mat-card-subtitle style="display: flex; justify-content: space-between">
+                    <div>
+                        <span *ngFor="let context of translation.meanings" class="word-context">
+                            {{context}}
+                        </span>
+                    </div>
+                    <div>
+                        <span *ngIf="translation.type">{{translation.type}}</span>
+                    </div>
                 </mat-card-subtitle>
             </mat-card>
             <mat-divider class="divider"></mat-divider>

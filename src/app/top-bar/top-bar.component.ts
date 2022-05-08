@@ -8,9 +8,15 @@ import {MatSidenav} from "@angular/material/sidenav";
 })
 export class TopBarComponent {
 
+  /**
+   * Internal variable for sidenav computational control
+   * */
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
+  /**
+   * Toggle sidenav menu
+   * */
   toggleMenu() {
     if (this.sidenav.opened) {
       console.log("cloising sidenavc")

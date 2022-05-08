@@ -19,24 +19,53 @@ class CustomErrorStateMatcher implements ErrorStateMatcher {
 })
 export class TranslatePageComponent implements OnInit {
 
+    /**
+     * Translation source languages
+     * */
     sourceLanguages: Intl.Locale[] = []
+    /**
+     * Translation target languages (per source language)
+     * */
     targetLanguages: Map<string, Intl.Locale[]> = new Map()
+    /**
+     * Currently selected input language
+     * */
     inputLanguage: string = ""
+    /**
+     * Currently selected output language
+     * */
     outputLanguage: string = ""
+    /**
+     * Currently added translation input
+     * */
     toTranslate: string = ""
-    translated: string = ""
+    /**
+     * Received translations
+     * */
     translations: Array<Translation> = []
+    /**
+     * Form control for input text
+     * */
     inputTextFormControl: FormControl = new FormControl('', [Validators.minLength(1), Validators.required]);
-    JSON = JSON;
-    selectErrorStateMatcher: any = new CustomErrorStateMatcher();
-    triedOnce: boolean = false;
+    /**
+     * Error flag for no translation exists
+     * */
     noResponse: boolean = false;
+    /**
+     * Custom error message in case the error is not 'noResponse'
+     * */
     customError: string = "";
+    /**
+     * Show error messages or not. Gets reset every time the input updates
+     * */
     showError: boolean = false;
 
     constructor(private translateService: TranslateService) {
     }
 
+    /**
+     * Fetch available languages (from the api) and store them asynchronously
+     * */
     subscribeToLanguages() {
         this.translateService.getLangs().subscribe(
             langs => {
@@ -61,9 +90,12 @@ export class TranslatePageComponent implements OnInit {
         )
     }
 
+    /**
+     * Get translation(s) from the api and store them
+     * */
     async translate() {
-        this.triedOnce = true;
         if (!this.inputLanguage || !this.outputLanguage || !this.toTranslate) {
+            this.showError = true;
             return;
         }
         this.translateService.translate(
@@ -80,7 +112,6 @@ export class TranslatePageComponent implements OnInit {
                     return;
                 }
                 this.translations = translation
-                this.translated = translation[0].translation
                 this.noResponse = false;
                 this.customError = "";
                 this.showError = false;
@@ -89,7 +120,7 @@ export class TranslatePageComponent implements OnInit {
                 console.log(error)
                 this.noResponse = false;
                 this.showError = true;
-                this.customError = error.message;
+                this.customError = error.message || 'Network error';
             }
         )
     }
